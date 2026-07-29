@@ -1,0 +1,1584 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Alexandra</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --morado-oscuro: #210033;
+      --morado-medio: #5b1688;
+      --morado-claro: #9b4dcc;
+      --blanco-suave: #f9efff;
+      --cristal: rgba(255, 255, 255, 0.13);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: white;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.13), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.08), transparent 26%),
+        linear-gradient(135deg, var(--morado-oscuro), var(--morado-medio), var(--morado-claro));
+      background-attachment: fixed;
+    }
+
+    /* ESTRELLAS */
+    .estrellas,
+    .estrellas::before,
+    .estrellas::after {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+      background-repeat: repeat;
+      z-index: 0;
+    }
+
+    .estrellas {
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1.5px);
+      background-size: 85px 85px, 130px 130px;
+      background-position: 0 0, 25px 45px;
+      animation: moverEstrellas 30s linear infinite;
+      opacity: 0.48;
+    }
+
+    .estrellas::before {
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.45) 1px, transparent 1.5px);
+      background-size: 170px 170px;
+      background-position: 65px 20px;
+      animation: moverEstrellas 45s linear infinite reverse;
+      opacity: 0.6;
+    }
+
+    @keyframes moverEstrellas {
+      from { transform: translateY(0); }
+      to { transform: translateY(-120px); }
+    }
+
+    /* BIENVENIDA */
+    .portada {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background:
+        radial-gradient(circle at center, rgba(137, 67, 181, 0.38), transparent 42%),
+        linear-gradient(135deg, #180025, #4c0d70, #7f2eaa);
+      transition: opacity 0.9s ease, visibility 0.9s ease;
+    }
+
+    .portada.oculta {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .carta {
+      width: min(92%, 620px);
+      padding: 46px 32px;
+      border-radius: 28px;
+      text-align: center;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.28);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.38);
+      animation: entrarCarta 1s ease;
+    }
+
+    .sobre {
+      width: 110px;
+      height: 78px;
+      margin: 0 auto 24px;
+      position: relative;
+      border-radius: 12px;
+      background: #f6ddff;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+    }
+
+    .sobre::before,
+    .sobre::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+    }
+
+    .sobre::before {
+      clip-path: polygon(0 0, 50% 58%, 100% 0);
+      background: #d9a5ef;
+    }
+
+    .sobre::after {
+      clip-path: polygon(0 100%, 50% 43%, 100% 100%);
+      background: #ead0f8;
+    }
+
+    .corazon-sobre {
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      font-size: 24px;
+    }
+
+    .carta h1 {
+      margin-bottom: 14px;
+      font-size: clamp(2.6rem, 8vw, 4.8rem);
+      text-shadow: 0 5px 18px rgba(0,0,0,0.35);
+    }
+
+    .carta p {
+      max-width: 470px;
+      margin: auto;
+      color: #f1ddff;
+      font-size: 1.08rem;
+      line-height: 1.7;
+    }
+
+    .boton-abrir {
+      margin-top: 28px;
+      padding: 15px 38px;
+      border: none;
+      border-radius: 999px;
+      background: white;
+      color: #681c91;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .boton-abrir:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 16px 34px rgba(0,0,0,0.34);
+    }
+
+    @keyframes entrarCarta {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* PRINCIPAL */
+    .contenido {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 1100px);
+      margin: auto;
+      padding: 42px 20px 60px;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .contenido.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .encabezado {
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    .encabezado h2 {
+      margin-bottom: 10px;
+      font-size: clamp(2.4rem, 7vw, 4.5rem);
+      text-shadow: 0 5px 18px rgba(0,0,0,0.36);
+    }
+
+    .encabezado p {
+      color: #efdfff;
+      font-size: 1.08rem;
+      line-height: 1.6;
+    }
+
+    .botones {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .boton-seccion {
+      padding: 16px 13px;
+      border: 1px solid rgba(255,255,255,0.34);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.12);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .boton-seccion:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.24);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.24);
+    }
+
+    .boton-seccion.activo {
+      background: white;
+      color: #681c91;
+      font-weight: 700;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.3);
+    }
+
+    .boton-final{
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: 320px;
+      max-width: 100%;
+    }
+
+    .seccion {
+      display: none;
+      padding: 36px 30px;
+      border-radius: 26px;
+      background: var(--cristal);
+      border: 1px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 48px rgba(0,0,0,0.3);
+      text-align: left;
+    }
+
+    .seccion.visible {
+      display: block;
+      animation: aparecer 0.55s ease;
+    }
+
+    .seccion h3 {
+      margin-bottom: 16px;
+      font-size: clamp(1.7rem, 4vw, 2.25rem);
+      color: #fff4ff;
+    }
+
+    .seccion p {
+      color: var(--blanco-suave);
+      font-size: 1.05rem;
+      line-height: 1.85;
+    }
+
+    .centrada {
+      text-align: center;
+    }
+
+    .centrada p {
+      max-width: 790px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .frase {
+      max-width: 730px;
+      margin: 26px auto 0;
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff6ff;
+      font-style: italic;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+
+    /* PERSONAJES A LOS LADOS DE LA PRIMERA SECCIÓN */
+    .presentacion-con-personajes {
+      display: grid;
+      grid-template-columns: minmax(150px, 220px) minmax(0, 1fr) minmax(150px, 220px);
+      gap: 24px;
+      align-items: end;
+    }
+
+    .personaje {
+      width: 100%;
+      max-height: 520px;
+      object-fit: contain;
+      filter: drop-shadow(0 16px 22px rgba(0,0,0,0.38));
+      animation: flotarPersonaje 4s ease-in-out infinite;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .personaje-derecha {
+      animation-delay: -2s;
+    }
+
+    .texto-presentacion {
+      min-width: 0;
+    }
+
+    @keyframes flotarPersonaje {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+
+    /* REPRODUCTOR DE MÚSICA */
+    .reproductor {
+      max-width: 620px;
+      margin: 24px auto;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.20);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.22);
+      text-align: center;
+    }
+
+    .reproductor-titulo {
+      margin-bottom: 12px;
+      color: #fff6ff;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .boton-musica {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 999px;
+      background: white;
+      color: #681c91;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.22);
+    }
+
+    .boton-musica:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.28);
+    }
+
+    .barra-musica {
+      width: 100%;
+      margin-top: 15px;
+      accent-color: #ffffff;
+      cursor: pointer;
+    }
+
+    .tiempo-musica {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      color: #f1ddff;
+      font-size: 0.88rem;
+    }
+
+    .reproductor.reproduciendo .reproductor-titulo {
+      animation: brilloMusica 1.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes brilloMusica {
+      from { opacity: 0.72; }
+      to { opacity: 1; }
+    }
+
+
+    /* GALERÍA DE 15 FOTOS */
+    .galeria-recuerdos {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin: 28px auto;
+    }
+
+    .foto-recuerdo {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.28);
+    }
+
+    .foto-recuerdo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.35s ease, filter 0.35s ease;
+    }
+
+    .foto-recuerdo:hover img {
+      transform: scale(1.06);
+      filter: brightness(1.08);
+    }
+
+    .foto-recuerdo span {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(33,0,51,0.72);
+      color: white;
+      font-size: 0.82rem;
+      backdrop-filter: blur(8px);
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .contenido {
+        padding: 28px 14px 45px;
+      }
+
+      .botones {
+        grid-template-columns: 1fr;
+      }
+
+      .carta {
+        padding: 38px 22px;
+      }
+
+      .seccion {
+        padding: 28px 21px;
+      }
+
+      .presentacion-con-personajes {
+        grid-template-columns: 1fr;
+      }
+
+      .personaje {
+        max-width: 210px;
+        max-height: 260px;
+        margin: 0 auto;
+      }
+
+      .personaje-izquierda {
+        order: 1;
+      }
+
+      .texto-presentacion {
+        order: 2;
+      }
+
+      .personaje-derecha {
+        order: 3;
+      }
+
+      .galeria-recuerdos {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="estrellas"></div>
+
+  <!-- PORTADA -->
+  <section class="portada" id="portada">
+    <div class="carta">
+      <div class="sobre">
+        <span class="corazon-sobre">💜</span>
+      </div>
+
+      <h1>Para Alexandra</h1>
+
+      <p>
+        Esto es lo que algun dia
+        quise entregarte en un 17.
+      
+        Pero creo hoy ya no será posible
+        sin embargo; lo hago con amor, el 
+        mismo que sigue vivo en mí hacia ti.
+      </p>
+      <p>
+        No tendre la certeza de que lo leas o lo veas, 
+        no sabre si lo habras visto o veras pero me habré 
+        ido feliz sabiendo todo lo que quise para tí y sobre
+        todo con honestidad, gentilez y amor para tí...
+      </p>
+      <p>
+        Te quiero mucho mi Alexandra ♡
+      </p>
+      <p>
+        Te extrañó mucho, pero mucho y te extrañare...
+      </p>
+      <p>
+        Te sigo amando, y te seguire amando como el primer dia que fuimos ¨nosotros...¨
+      </p>
+      <p>
+        💖 Te quiero 💖 
+
+      </p>
+      
+      <button class="boton-abrir" onclick="abrirPagina()">
+        Abrir
+      </button>
+    </div>
+  </section>
+
+  <!-- PÁGINA -->
+  <main class="contenido" id="contenido">
+
+    <header class="encabezado">
+      <h2>Para Alexandra</h2>
+      <p>
+        ♡ Esto es para ti ♡.
+      </p>
+    </header>
+
+    <nav class="botones">
+      <button class="boton-seccion activo" onclick="mostrarSeccion('presentacion', this)">
+        💜 Este espacio es para ti 💜
+      </button>
+
+      <button class="boton-seccion" onclick="mostrarSeccion('seccion1', this)">
+        🌸 El comienzo 🌸
+      </button>
+
+      <button class="boton-seccion" onclick="mostrarSeccion('seccion2', this)">
+        📖 Nuestra historia 📖
+      </button>
+
+      <button class="boton-seccion" onclick="mostrarSeccion('seccion3', this)">
+        📸 Momentos inolvidables 📸
+      </button>
+
+      <button class="boton-seccion" onclick="mostrarSeccion('seccion4', this)">
+        ✨ Las pequeñas cosas ✨
+      </button>
+
+      <button class="boton-seccion" onclick="mostrarSeccion('seccion5', this)">
+        ❗Lo que admiro ❗
+      </button>
+
+      <button class="boton-seccion" onclick="mostrarSeccion('seccion6', this)">
+        🌱 Lo que aprendí y me disculpo 🌱
+      </button>
+
+      <button class="boton-seccion" onclick="mostrarSeccion('seccion7', this)">
+        💙 Gracias 💙
+      </button>
+
+      <button class="boton-seccion boton-final" onclick="mostrarSeccion('seccion8', this)">
+        🌌 Me retiro 🌌
+      </button>
+    </nav>
+
+    <section id="presentacion" class="seccion visible centrada">
+      <h3>Este espacio es para ti</h3>
+
+      <div class="presentacion-con-personajes">
+        <img
+          class="personaje personaje-izquierda"
+          src="img/deku.png"
+          alt="Deku"
+        >
+
+        <div class="texto-presentacion">
+          <p>
+        Hola, Ale.
+        <br><br>
+
+        Antes de comenzar, quiero pedirte unos minutos.
+        Tal vez interpretes esto como mi ultimo intento de ir por tí..., aunque para mi, sí lo es, se que soy necio en esuchar, pero me niego a que termine asi tan facil...
+        No busco ni puedo cambiar el pasado y mucho menos pedirte una respuesta, se que tomaste ya una decisión pero
+        lo que su puedo cambiar el futuro y ser mejor para mi, y para tí...
+        <br><br>
+
+        Simplemente quise reunir en un mismo lugar algunos recuerdos, como tu lo hiciste hacia mi, aunque ya no se si tenga
+        el derecho a verlos..., solo aqui puedo decirte algunas palabras y aprendizajes que significaron mucho para mí y 
+        sobre todo lo que aprendí de tí hacia mi.
+        <br><br>
+
+        Si decides recorrerla, gracias por regalarme un poco de tu tiempo.
+        Tendras esto para toda la vida y sobre todo cuando quieras verlo, prometo ahora cada 17 intentar poner algo nuevo,
+        tal vez ya no signifique mucho para tí, pero para mí lo sera todo, intentare poner cosas nuevas, o bien intentar algo diferente...
+        Y si en algún momento prefieres detenerte, también está bien, tampoco quiero abrumarte ni herirte más, lo hago con amor...
+        Simplemente solo quiero decirte algunas cosas...
+        <br><br>
+
+        Lo único que deseo es que, por unos minutos,
+        puedas ver esta historia desde mis ojos.
+
+        <br><br>
+          </p>
+
+
+          <div class="reproductor" data-audio="audio/meteora.mp3">
+            <div class="reproductor-titulo">
+              ¿Que hay aqui?
+            </div>
+
+            <button class="boton-musica" type="button">
+              Reproducir
+            </button>
+
+            <input
+              class="barra-musica"
+              type="range"
+              min="0"
+              max="100"
+              value="0"
+              step="0.1"
+              aria-label="Progreso de la canción"
+            >
+
+            <div class="tiempo-musica">
+              <span class="tiempo-actual">00:00</span>
+              <span class="duracion">00:00</span>
+            </div>
+          </div>
+
+          <div class="frase">
+            Bienvenida Ale
+            <br><br>
+            01-07-2025
+          </div>
+        </div>
+
+        <img
+          class="personaje personaje-derecha"
+          src="img/bakugo.png"
+          alt="Bakugo"
+        >
+      </div>
+    </section>
+
+    <section id="seccion1" class="seccion centrada">
+      <h3>El comienzo</h3>
+
+      <div class="presentacion-con-personajes">
+        <img
+          class="personaje personaje-izquierda"
+          src="img/osito.png"
+          alt="Osito"
+        >
+
+        <div class="texto-presentacion">
+          <p>
+
+            Todo comento ese 01 de Julio de 2025...
+
+            Recuerdo con cariño ese día, la verdad estaba algo triste, lo recuerdo cada año, por que siempre me pasa cada Julio...
+            tal vez ya no importa contarlo, pero me salvaste sabes, sin embargo; cuando te me acercaste, lo cambiaste en un instante y me sentí mucho mejor...
+
+            <br><br>
+
+            Se que no llegue en el mejor momento a tu vida, aunque bueno, ya habia habido acercamientos, ibamos en las mismas clases, me fuiste interesante,
+            no me casare de decirlo, me sorprendiste ese dia en ecuaciones diferenciales, la unica que pudo hacer algo diferente, todos confiaban en mi, 
+            pero ajam, llegaste tu y me callaste la boca, me demostraste algo diferente, en confiar en alguien más, y sin pensarlo fuiste tu...
+
+            <br><br>
+
+            Pasaba el verano del año pasado, eran las vacaciones, momentos en que expereimente algo nuevo contigo, la comunicación con alguien diferente a
+            mis otros amigos, la verdad, me sorprendio mucho, ya que normalmente solo tengo un amigo y es Miguel, pero fuiste en ese verano mi nueva amiga en 
+            ese ambito, tomabamos charlas que muy pocos hacen, bueno para serte cincero, siempre me sacabas charla desde lo trivial, hasta cosas un poco más
+            personales, para serte cincero me gustó que lo hicieras, siempre me emocionaba cuando me mandabas un mensaje, se que nunca tuve el valor para hacerlo yo,
+            lo siento, no es que no quisiera, sino ya sabes, soy demasiado timido, no me busco justificar sino que, no tenia nada que contarte, mi vida era demasiado
+            palida/ gris, sin embargo cuando hablabamos, la pintabas, le cambiabas el tono y el sentido a las charlas...
+
+            <br><br>
+
+            Cuando hablabamos siempre me encontrabas jugando videojuegos, sin embargo; los dejaba a un lado y mejor me iba a hablar contigo, volvias esas tardes más
+            entretenidas, mas dinamicas, con mas sentido a haberlas aprovechado, hasta el punto de desvelarme por primera vez, tal ves lo veas algo inusual en mi, la
+            verdad, valian la pena, me dormia muy feliz para ser cincero, pensando en la charla que tenia contigo, en conocer algo nuevo de ti y tu de mi, del espacio
+            en donde trabajaba, las cosas que tenia y de las cosas que haciamos, de nuestro pasado de nuestros origenes...
+
+            <br><br>
+
+            La verdad, hoy es un cambio muy diferente, me di cuenta que debí aprovechar mucho mas esas charlas contigo, si no fuera por que no se puede cambiar el pasado
+            regresaria a ese verano magico que vivi, bueno vivimos, se que esta mal que hable por ambos, tu postura cambio en este verano, por culpa de mis acciones, 
+            provoque que olvidaras, bueno sean recuerdos algo desagradables, sin embargo; yo los mantengo vivos y con amor, de esa conexión muy rapida casi en un instante, 
+            se que va a ver algun dia que los olvides o bien sean guardados en un cofre y nunca más olvidarlos, pero te aseguro que yo estare aqui para mantenerlos vivos...
+
+            <br><br>
+
+            Disculpame Ale, me dueles, me duele en como termina esto, cada noche es un sufrimiento siento una cuchilla atravesando mi alma, un arma que yo solo me coloque,
+            pero hare hasta donde me lo permitas, arreglando estos errores con acciones, no me pienso rendir tan facilmente, este soy yo, alguien aferrado a que algo 
+            funcione, a pesar de las averías, desordenes que hize, este es el precio que estoy pagando, pero juro, te lo juro por el osito Bimbo, que todo será mejor...
+
+          </p>
+
+          <div class="reproductor" data-audio="audio/el-fin-del-mundo.mp3">
+            <div class="reproductor-titulo">
+              ¿Que hay aqui?
+            </div>
+
+            <button class="boton-musica" type="button">
+              ▶ Reproducir
+            </button>
+
+            <input
+              class="barra-musica"
+              type="range"
+              min="0"
+              max="100"
+              value="0"
+              step="0.1"
+              aria-label="Progreso de la canción"
+            >
+
+            <div class="tiempo-musica">
+              <span class="tiempo-actual">00:00</span>
+              <span class="duracion">00:00</span>
+            </div>
+          </div>
+        </div>
+
+        <img
+          class="personaje personaje-derecha"
+          src="img/giyu.png"
+          alt="Giyu"
+        >
+      </div>
+    </section>
+
+    <section id="seccion2" class="seccion centrada">
+      <h3>Nuestra historia</h3>
+
+      <div class="presentacion-con-personajes">
+        <img
+          class="personaje personaje-izquierda"
+          src="img/akaza.png"
+          alt="Akaza"
+        >
+
+        <div class="texto-presentacion">
+          <p>
+        Tal vez es soy algo repetitivo pero una vez una persona me dijo: "Recordar es volver a vivir" y tome la palabra a hacerlo
+       se que muchas veces repito lo que pasa, lo que vivi, lo que vi, se que nunca tuve muchas cosas que decir, que compartir,
+       no me justifico en nada, pero siempre vivi desde pequeño en la soledad, siendo esa persona diferente a los demas, me tocó ser
+       el callado, el timido, el niño miedoso a hacer algo...
+
+       <br><br>
+
+       Sin embargo, ese 1 de julio del 2025, cambio, fue un momento algo efímero pero se disfruto por ambas partes, me sorprende haber
+       conocido a una chica que le gustará los mismos animes que a mí, en hablar de cosas triviales en ese momento, creeme me gusto hablarlas
+       aún las recuerdo como si hubiese sido ayer...
+
+       <br><br>
+
+       Te conocí en un momento algo pesado, recuerdo que ibas a hacer examenes extraordinarios, de quimica y inusualmente de circuitos, era
+       la oportunidad perfecta para ayudarte, tener un motivo para acercarme a ti poco a poco, pero en el fondo no tanto asi, sino de corazón
+       por que quise hacerlo, quise ayudarte, sin embargo, ese día, fuiste la mejor, pasaste dos examenes extraordinarios, me sorprendí mucho 
+       la verdad, me fuiste mas atractiva, me enamoré la verdad...
+
+       <br><br>
+
+       Cuando iniciamos el tercer semestre, tenia miedo, no de ti, sino de como hacer las cosas, te preguntaras que cosas?, bueno el caerte
+       bien, la verdad siempre estaba nervioso, el estar junto a la niña que me gusta, en cierta parte trate de sobresalir para que vieras de 
+       lo que soy capaz de hacer, por tí, bueno para nosotros, se que falle muchas veces, te decepcione, sin embargo..., estuviste tú ahi para mí,
+       me senti cuidado y querido, de que hice un buen intento a lo que me enfrentaba y que lo hice bien, en serio gracias por acompañarme, 
+       aconsejarme, apoyarme, cuidarme...
+
+       <br><br>
+
+       Com el lapso del tiempo me fui dando cuenta de muchas cosas, de los acercamientos, de las indirectas, de tus sentimientos, de tu naturaleza
+       de las charlas de los momentos, de lo que somos capacer de hacer, se que me tarde, ese dia tuve que decirte lo mismo: "TU TAMBIEN ME GUSTAS",
+       pero mi corazón entro en un estado de nerviosismo puro, me sentí muy emocionado de coincidir contigo, solo que en ese momento llego Gabriel y 
+       en cierto punto arruino el momento, pero te segui hasta el baño y te espere, no supe bien que decirte, solo queria abrazarte queria quedarme 
+       contigo, me sentí orgulloso, me sentí amado por primera vez en mucho tiempo... 
+
+       <br><br>
+
+       Quiero quedarme contigo Ale, por favor..., no puedo y no se como seguir mi vida sin tí, no podria hacerlo bien, siento un vacio eterno con 
+       este distanciamiento, me encariñe mucho contigo al grado de poder llamarte familia a una etapa temprana, lo digo en serio, tal vez no te agrade
+       la idea pero tengo un sueño contigo hacer un legado, me diste una razón para levantarme, seguir adelante, te esperaré esta vida y mil otras 
+       para estar con mi amada, de la mujer que me enamora cada día, se que hoy estamos lejos pero no me rendiré, te seguiré el paso, seguire buscandote
+       asi tenga que ir todos los dias a tu casa y hablarte, tal vez suene mal, pero no puedo vivir sin tí, no es acoso ni nada de eso, mis pies se
+       mueven por si solos, y hacia tí, lo mismo que mis sentimientos me gritan en mi cabeza y en mis oidos que vaya hacia tí, por que te quiero y me
+       dolera dejarte ir, sentiré un vacio muy profundo que nadie pueda llenar...
+       
+       <br><br>
+
+       Vuelve por favor, si?, te extraño mucho..., caminemos en este camino cubierto de luz y oscuridad, somos más fuertes que este distanciamiento
+
+       <br><br>
+
+       ♡ Te extraño Ale ♡
+          </p>
+
+          <div class="reproductor" data-audio="audio/00-00.mp3">
+            <div class="reproductor-titulo">
+              ¿Que hay aqui?
+            </div>
+
+            <button class="boton-musica" type="button">
+              ▶ Reproducir
+            </button>
+
+            <input
+              class="barra-musica"
+              type="range"
+              min="0"
+              max="100"
+              value="0"
+              step="0.1"
+              aria-label="Progreso de la canción"
+            >
+
+            <div class="tiempo-musica">
+              <span class="tiempo-actual">00:00</span>
+              <span class="duracion">00:00</span>
+            </div>
+          </div>
+        </div>
+
+        <img
+          class="personaje personaje-derecha"
+          src="img/koyuki.png"
+          alt="Koyuki"
+        >
+      </div>
+    </section>
+
+    <section id="seccion3" class="seccion centrada">
+      <h3>Momentos inolvidables</h3>
+
+      <p>
+        Cada foto, cada recuerdo, lo atesoro con mucho amor y cariño.
+        Tal vez nos faltó llenar muchos espacios, pero estas imágenes
+        conservan una parte de lo que vivimos.
+
+        <br><br>
+
+        ¿Por que no lo seguimos llenando?
+
+      </p>
+
+      <div class="reproductor" data-audio="audio/visita.mp3">
+        <div class="reproductor-titulo">
+          ¿Que hay aqui?
+        </div>
+
+        <button class="boton-musica" type="button">
+          ▶ Reproducir
+        </button>
+
+        <input
+          class="barra-musica"
+          type="range"
+          min="0"
+          max="100"
+          value="0"
+          step="0.1"
+          aria-label="Progreso de la canción"
+        >
+
+        <div class="tiempo-musica">
+          <span class="tiempo-actual">00:00</span>
+          <span class="duracion">00:00</span>
+        </div>
+      </div>
+
+      <div class="galeria-recuerdos">
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo01.jpg" alt="Recuerdo 1">
+          <span>💖</span>
+        </figure>
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo02.jpg" alt="Recuerdo 2">
+          <span>💖</span>
+        </figure>
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo03.jpg" alt="Recuerdo 3">
+          <span>💖</span>
+        </figure>
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo04.jpg" alt="Recuerdo 4">
+          <span>💖</span>
+        </figure>
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo05.jpg" alt="Recuerdo 5">
+          <span>💖</span>
+        </figure>
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo06.jpg" alt="Recuerdo 6">
+          <span>💖</span>
+        </figure>
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo07.jpg" alt="Recuerdo 7">
+          <span>💖</span>
+        </figure>
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo08.jpg" alt="Recuerdo 8">
+          <span>💖</span>
+        </figure>
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo09.jpg" alt="Recuerdo 9">
+          <span>💖</span>
+        </figure>
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo10.jpg" alt="Recuerdo 10">
+          <span>💖</span>
+        </figure>
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo11.jpg" alt="Recuerdo 11">
+          <span>💖</span>
+        </figure>
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo12.jpg" alt="Recuerdo 12">
+          <span>💖</span>
+        </figure>
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo13.jpg" alt="Recuerdo 13">
+          <span>💖</span>
+        </figure>
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo14.jpg" alt="Recuerdo 14">
+          <span>💖</span>
+        </figure>
+        <figure class="foto-recuerdo">
+          <img src="img/recuerdo15.jpg" alt="Recuerdo 15">
+          <span>💖</span>
+        </figure>
+      </div>
+    </section>
+
+    <section id="seccion4" class="seccion centrada">
+      <h3>Las pequeñas cosas</h3>
+
+      <div class="presentacion-con-personajes">
+        <img
+          class="personaje personaje-izquierda"
+          src="img/mitsuri.png"
+          alt="Mitsuri"
+        >
+
+        <div class="texto-presentacion">
+          <p>
+        Que puedo decir Ale, sinceramente no hay palabras para describir lo lindo que fuimos ame todo esto que compartimos, al principio 
+        era demasiado callado, timido, tu al contrario siempre nos ponias temas un tanto no relevantes para otras personas pero para nosotros 
+        lo eran todo, somos dos raritos que coinciden con cosas inusuales, sin embargo; son las mejores que podemos compartir, esas pequeñas 
+        bromas que empezaba a hacer cuando empezé a tomar confianza, como lo de; !Mira, mi dedo!, siempre caen en esa broma, o en mis frases 
+        tal vez algo tontas, bodrias, sin humor en algunas veces...
+
+        <br><br>
+        
+        Los apodos que empezamos a tener, recuerdo que me llamabas Tesla, al final entendi por que..., lo amé de verdad, nunca te lo dije
+        pero en mi cabeza o cuando me ponia a pensar en tí en todo noviembre, diciembre y cuando regresamos del paro, siempre te llamabá
+        "ales", algo tal vez raro, pero me gusta llamarte así, seguire aciendolo para no olvidarte mi ales...
+
+        <br><br>
+
+        Amo tu forma de reir cuando te conocí, es la sonrisa mas natural que puedo ver, cuando estabas triste, cuando querias llorar, cuando pensabas, cuando sobrepensabas,
+        cuando imaginabas cosas lindas, es tu matiz, es tu naturaleza, tu forma unica de ser Alexandra, cada cosa que veias, tambien lo
+        veia yo, me gusta tu forma en como piensas las cosas, las conversaciones, es muy natural,, te cuidare de mejor forma, pero creo esta vez me toca de lejitos,
+        sin emabargo; disfrute cada momento en los cuales cuando estabamos solos, con amigos, reimos juntos, lloramos juntos, luchamos juntos...
+        
+        <br><br>
+
+        Las costumbres nunca se olvidaran, se volvieron mi día a día, el desayunasr juntos, en el como me educaste, me ayudaste, me enseñaste, 
+        me orientaste, se volvieron rutinas de mi día a día, se que hoy estas enojada, pero muy enojada y lo entiendo, respeto tu desición,
+        aunque me duela, aunque me niegue, aunque no acepte ahora las seguire haciendo con mucha mas fuerza, por que todo fue bueno, 
+        no me debes nada, yo te debo la vida, con tenerte lo tengo todo...
+
+        <br><br>
+
+        Te debo muchas explicaciones, pero trataré de explicarlas poco a poco, tal vez de forma diferente, pero lo haré, no tengo la certeza de que 
+        lo leas o quieras leerlo, pero lo hare por que me nace, tal vez en este espacio, o te llevaré una carta, si es que aun puedo y me permites 
+        hacerlo...
+
+        <br><br>
+
+        Te quiero Ale...
+          </p>
+
+          <div class="reproductor" data-audio="audio/the-scientist.mp3">
+            <div class="reproductor-titulo">
+              ¿Que hay aqui?
+            </div>
+
+            <button class="boton-musica" type="button">
+              ▶ Reproducir
+            </button>
+
+            <input
+              class="barra-musica"
+              type="range"
+              min="0"
+              max="100"
+              value="0"
+              step="0.1"
+              aria-label="Progreso de la canción"
+            >
+
+            <div class="tiempo-musica">
+              <span class="tiempo-actual">00:00</span>
+              <span class="duracion">00:00</span>
+            </div>
+          </div>
+        </div>
+
+        <img
+          class="personaje personaje-derecha"
+          src="img/iguro.png"
+          alt="Iguro"
+        >
+      </div>
+    </section>
+
+    <section id="seccion5" class="seccion centrada">
+      <h3>Lo que siempre admiré de ti</h3>
+
+      <div class="presentacion-con-personajes">
+        <img
+          class="personaje personaje-izquierda"
+          src="img/sabito.jpg"
+          alt="Sabito"
+        >
+
+        <div class="texto-presentacion">
+          <p>
+        Admiro muchas cosas de tí Ale, eres una mujer aguerrida, fuerte, solidaria, hermosa, hubo una vez que me preguntaste:
+
+        <br><br>
+
+        ¿Que es lo que te gusta fisicamente de una niña?
+
+        <br><br>
+
+        Ahora puedo responder con mas seguridad...
+        
+        <br><br>
+
+        Su sonrisa, que a pesar de los malos tiempos siempre tenga una linda sonrisa, que se acepte como es, que no vea el fisico como
+        un impedimento de menospreciarse o hacerse menos, que compita, que tenga esa iniciativa, que sea el ejemplo de los demás, que a pesar
+        de que piense que no pueda, lo intente, sus valores, y todo esto Ale..., lo veo en tí, tal vez es repetitivo esto, pero ese día en
+        ecuaciones diferenciales, me atrapaste en tu valentía, sabiendo que posiblemente estabas mal, lo intentaste y me diste una gran lección
+        de vida, no cabe duda que el mundo es pequeño, hoy, si hoy me lo demostraste, demostraste esa tenacidad, ese orgullo de guerrera
+        de una profesionista con valentía...
+
+        <br><br>
+
+        Sinceramente no creí ver a alguien como tú, con un sueño noble, de gentileza, de ambición, de proposito, tu forma de ver las cosas,
+        de interpretarlas, tu ezfuerzo de estar hasta hoy aqui, ese liderazgo, curiosidad...
+
+        <br><br>
+
+        Al final terminaste enseñandome tu a mí, terminaste de ser mi guía, mi luz, mi camino, mi dirección, me educaste, me regañaste,
+        y todo eso lo entendí, puede que algunas cosas tarde pero siempre tuviste esa iniciativa, para ser cincero a veces me daba envidia
+        que lograras más que yo, pero me alegro, por que viene de tu corazón, de tu forma de ser Alexandra...
+
+        <br><br>
+
+        Al final, termine reprobando tu clase, me quede corto, me atrase, me distraje por culpa de mis acciones, pero ya aprendí, si en algun 
+        futuro hay un extraordinario, te lo juro, que lo pasaré, gracias a tí, para intentar estar contigo, suena dificil, pero, me 
+        arriesgare, por que asi es Nico, es aguerrido igual que tú, tal vez no a tu paso pero si con la misma determinación y ambición que
+        la tuya.
+
+        <br><br>
+
+        Te amo Alexandra..., GRACIAS :^
+          </p>
+
+          <div class="reproductor" data-audio="audio/luna.mp3">
+            <div class="reproductor-titulo">
+              ¿Que hay aqui?
+            </div>
+
+            <button class="boton-musica" type="button">
+              ▶ Reproducir
+            </button>
+
+            <input
+              class="barra-musica"
+              type="range"
+              min="0"
+              max="100"
+              value="0"
+              step="0.1"
+              aria-label="Progreso de la canción"
+            >
+
+            <div class="tiempo-musica">
+              <span class="tiempo-actual">00:00</span>
+              <span class="duracion">00:00</span>
+            </div>
+          </div>
+        </div>
+
+        <img
+          class="personaje personaje-derecha"
+          src="img/giyu-admiro.jpg"
+          alt="Giyu"
+        >
+      </div>
+    </section>
+
+    <section id="seccion6" class="seccion centrada">
+      <h3>Lo que aprendí y me disculpo</h3>
+
+      <div class="presentacion-con-personajes">
+        <img
+          class="personaje personaje-izquierda"
+          src="img/deku-aprendi.png"
+          alt="Deku"
+        >
+
+        <div class="texto-presentacion">
+          <p>
+Me lleve muchas experiencias nuevas contigo Ale, llegue a experimentar nuevas cosas, desde sentimientos, afecto, saber escuchar, 
+        paciencia, de hablar las cosas a tiempo, de entender a como ser mejor persona, y como tratar a los demas, se que son cosas basicas
+        de nuestro crecimiento pero, tu me ayudaste a entenderlas mejor.
+
+        <br><br>
+
+        Sí los dos nos equivocamos, cometimos errores, no hablamos las cosas en su momento y a tiempo, cometimos errores que nos van a ayudar 
+        en el futuro a ser mejores con los demas, puede que ahora con caminos diferentes pero con un mimso objetivo, te llevaré siempre en el 
+        alma Ale, tenlo por seguro, lo dije en un espacio lejos de aquí eres un tatuaje sin tinta que no podre borrar...
+
+        <br><br>
+
+        Creo pedirte una nueva oportunidad ya es algo complicado, algo imposible, siendo cincero, me gustas Ale, y mucho pero no puedo forzarte, creeme
+        si hubiera algo que tu me pidieras lo haría, no sabes las ganas que tengo de abrazarte y pedirte perdón definitivamente pero ya no 
+        me quieres ver y ya no me necesitas ver y me duele con toda el alma..., te eh estado persiguiendo desde ese 13 de noviembre del 2025, 
+        pero ya no te alcanzé, perdí tu marca, perdí tu paso, me tarde en buscarte, me tarde en escucharte y nuestro regreso al principio no 
+        fue lo esperado, cambio algo muy importante cuando regresamos del paro de la escuela, en nuestra conexión emocional se quebro algo, 
+        dejamos romper algo importante que dejamos morir, rompimos muchas promesas, principalmente yo, nos olvidamos mutuamente, de quienes 
+        eramos, de los momentos que hasta ese entonces empezamos a forjar...
+
+        <br><br>
+
+        Este es mi ultimo intento para salvar nuestra conexión, tal vez suena mal en como lo digo pero es mi forma de hacerlo, aunque tengo 
+        la idea de cual sera la respuesta, sin embargo la haré, por que Nico es asi, aguerrido, tenza, necio, pero en el sentido de intenarlo, 
+        se que morire, pero morire en el intento intentando recuperarte, se que tengo que hacerlo fisicamente pero, no quiero incomodarte ni 
+        presionarte, si se llegara a dar el caso, te lo preguntare nuevamente, cuando leas esto, bueno si es que lo llegas a leer, tal vez 
+        ya no esté, me habré ido de tí, quisisera darte minimo un abrazo final, Pero ya no tengo derecho a hacerlo, sin embargo me 
+        muero de ganas por hacerlo...
+        
+        <br><br>
+        
+        Mis sentimientos hacia ti son honestos, sinceros y puros, te seguire esperando asi sea toda la vida, tal vez exagero, puede que 
+        conozcas a alguien más, y seas mas feliz y si lo eres, yo tambien lo estaré, por que es una de mis tantos sueños, que tu seas feliz
+        conmigo o sin mí, sabiendo que algun dia morire, me ire traqnuilo que fuiste feliz a mi lado o sin mi que te des una nueva oportunidad 
+        pero aun asi, te llevaré en mi corazón, en mis sueños continuaré el camino que no pudimos conlcuir y ahí te seguire el paso, 
+        no te soltare ya no, por que ya estoy aqui, disculpa mi tardanza...
+        
+        <br><br>
+
+        En nuestra última conversación me dejé llevar por mis emociones. Me exalté, dije cosas que no debí decir y terminé actuando 
+        de una manera que no refleja la persona que quiero ser. No quiero justificarme diciendo que estaba triste o desesperado. 
+        
+        <br><br>
+
+        Lo estaba, pero eso no convierte mis palabras en correctas. Tú no merecías cargar con esa reacción. Lo siento de verdad. También 
+        quiero pedirte perdón por todas las veces en las que mis decisiones, mis actitudes o mis errores terminaron lastimándote. Sé que 
+        hubo heridas que no pude reparar y entiendo que un "perdón" no las borra...
+
+        <br><br>
+
+        Se que son cosas que te tengo que decir fisicamente pero ya no puedo acercarme a tí, no quiero hacer sentirte mal ni incomoda como
+        la de aquel sabado, sin pensar que era el ultimo día que te veria...
+          </p>
+
+          <div class="reproductor" data-audio="audio/solare.mp3">
+            <div class="reproductor-titulo">
+              ¿Que hay aqui?
+            </div>
+
+            <button class="boton-musica" type="button">
+              ▶ Reproducir
+            </button>
+
+            <input
+              class="barra-musica"
+              type="range"
+              min="0"
+              max="100"
+              value="0"
+              step="0.1"
+              aria-label="Progreso de la canción"
+            >
+
+            <div class="tiempo-musica">
+              <span class="tiempo-actual">00:00</span>
+              <span class="duracion">00:00</span>
+            </div>
+          </div>
+        </div>
+
+        <img
+          class="personaje personaje-derecha"
+          src="img/bakugo-aprendi.png"
+          alt="Bakugo"
+        >
+      </div>
+    </section>
+
+    <section id="seccion7" class="seccion centrada">
+      <h3>Gracias</h3>
+
+      <div class="presentacion-con-personajes">
+        <img
+          class="personaje personaje-izquierda"
+          src="img/rentaro.png"
+          alt="Rentaro"
+        >
+
+        <div class="texto-presentacion">
+          <p>
+Bueno creo ya casi es el final, bueno casi el final, dicen "que cuando dos almas gemelas estan destinadas a estar juntos se separan es
+        para volver mejores y mas fuertes que antes", para ser sincero, si nos paso, pero no se si haya una segunda vez..., sigo pensando que si, 
+        ambos nos equivocamos, aceptamos tomar riesgos y equivocarnos en el proceso, prometimos caminar juntos y si uno caía el otro le apoyaría
+        y viceversa, pero creo esta vez ambos caiamos, pero independiente de esto, es quien esta dispuesto a estar con alguien a pesar de como es
+        y tu lo fuiste y yo; también, se que no como esperabas, pero ponia mi granito de arena para acompañarte...
+
+        <br><br>
+
+        Nunca me aburrí de ti Ale, jamas, si con solo recibir un mensaje tuyo me pongo feliz, independiente de como estamos ahora, creeme que
+        lo estaré pero creo debe ser al revez, el estar buscandote, pero no te dire: "esperto tu decision" la verdad te dire que no me quiero ir
+        me quiero quedar contigo toda la vida, pero tampoco te puedo obligar a esto, es algo que tu decidiras bien, cuando leas esto, o bueno
+        si es que llegas a leerlo y verlo, por que lo hago con amor, el mismo que recibí de ti...
+
+        <br><br>
+
+        Se que ya no te quieres sentir así, como te hice sentir esas veces en las que me alejaba y te dañaba, simplemente creía que yo podía con todo
+        me quebraba si, y ese mimso quebramiento tambien te quebraba a tí, te alejaba de mí, esas desapariciones, esas actitudes, esas formas de alejarme
+        momentaneamente, me lastimaba mas yo de lo de yo a tí, no me justifico ni nada, pero sabes..., siempre busque y buscaré la forma de sanarte, 
+        tal vez ya es tarde pero quiero ser tu remedio, tu motivacion, se que ya es algo tarde pero, lo entendí..., sabes que siempre estaré 
+        para ti, amigos o no, conocidos o no, enojados o no, distanciados o no, bloqueados o no...
+
+        <br><br>
+          </p>
+
+          <div class="reproductor" data-audio="audio/eclipsis.mp3">
+            <div class="reproductor-titulo">
+              ¿Que hay aqui?
+            </div>
+
+            <button class="boton-musica" type="button">
+              ▶ Reproducir
+            </button>
+
+            <input
+              class="barra-musica"
+              type="range"
+              min="0"
+              max="100"
+              value="0"
+              step="0.1"
+              aria-label="Progreso de la canción"
+            >
+
+            <div class="tiempo-musica">
+              <span class="tiempo-actual">00:00</span>
+              <span class="duracion">00:00</span>
+            </div>
+          </div>
+        </div>
+
+        <img
+          class="personaje personaje-derecha"
+          src="img/waguri.png"
+          alt="Waguri"
+        >
+      </div>
+    </section>
+
+    <section id="seccion8" class="seccion centrada">
+      <h3>¿El final?</h3>
+
+      <div class="presentacion-con-personajes">
+        <img
+          class="personaje personaje-izquierda"
+          src="img/sabito otonal.jpg"
+          alt="Sabito"
+        >
+
+        <div class="texto-presentacion">
+          <p>
+La mayor duda que eh tenido estos dias es, me quedo y sigo luchando por tí o me alejo y te dejo en paz, me niego a dejarte, no lo acepto,
+        no podre olvidarte ni puedo hacerlo, no por obligación, mis sentimientos gritan por tí, eres especial...
+
+        <br><br>
+
+        Dicen que cuando amas algo, no lo dañas, lo cuidas, lo protejes, buscas la forma de mejorarlo, pulirlo, y sobre todo de corazón, se que 
+        te dañe muchas veces, se que es repetitivo lo que digo, no es que deje de amarte, solo que nno actue corectamente en el momento, desde las 
+        fotos, mi enfermedad en octubre y despues desapareci por dos semanas, mi regreso creo no fue lo mejor, sentía que ter perdía, llego noviembre 
+        y ocurrieron muchas cosas malas, Sebastian, el chico que te hostigo, llego el 13 de noviembre y dijimos adios, desde ese día te perdi...
+
+        <br><br>
+
+        Llego diciembre, era una soledad eterna sin tí, tu intentabas, no..., ambos intentabamos buscarnos, pero llegue un poco tarde;
+        llego el 7 de diciembre, yo ignore todo, la verdad, desde hace 14 años que no celebro mi cumpleaños, puede que te parezca mentira,
+        pero es la verdad siempre pasaba algo ese día, y el año pasado no fue la excepción..., siempre se olvidan de mi cumpleaños, 
+        estoy en cierta parte maldito, pero llegaste tú Ale, la mas importante, la primera en decir "Feliz cumpleaños",
+        junto a Miguel, Donkan, Gabriel, Diego, Cris, Edwin, Jessica, Carol y solo ellos, me recordaron lo importante que soy para ustedes...
+
+        <br><br>
+
+        Se que ya no habra un cambio de opinión, se que elegiste este camino, que no te puedo forzar, no te puedo decir vuelve por favor, me muero 
+        por tenerte una vez mas entre mis brazos, y si lo hago lo haria para no soltarte, tu te ves más guapa bailando y yo callado, siemper fue así 
+        entre los dos, te amo Ale, me agradaste desde la primera vez que te conocí, esa valentia, esa perseverancia, esa iniciativa, ese orgullo que 
+        cargas como mujer, una mujer aguerrida, nunca te olvidare...
+
+        <br><br>
+
+        Este puede que sea el último capítulo. Un lugar para despedirme con irme con tranquilidad, si llegas a esta parte, es por que se tomo
+        una decisión, te extrañaré y lo sigo haciendo, te amaré y lo sigo haciendo, tal vez ya no espere nada a cambio ni pueda cambiar algo,
+        aunque no me rindo, ni me rendiré, morire hasta el final para conquistar ese corazón nuevamente, tal vez en esta linea temporal o tal
+        vez en otra linea temporal o mis sueños simplemente dejando aquí una parte de nuestra historia...
+
+        <br><br>
+
+        Si nos volvemos a ver, sera por que me habre aceptado, habre cambiado, seré una mejor persona, tal vez contigo si el destinos nos lo permite
+        y si aceptas volver a tomar mi mano, continuar este camino que hoy dejamos inconcluso o puede que dado por conluido, te estaré esperando Ale, 
+        asi tengan que pasar decadas, o años, en está y en mil vidas te volveré a elegir, te cuidare mejor, sere mejor hombre contigo...
+
+        <br><br>
+
+        Cuidate mucho Ale, te amo...
+          </p>
+
+          <div class="reproductor" data-audio="audio/cielo-rosa.mp3">
+            <div class="reproductor-titulo">
+              ¿Que hay aqui?
+            </div>
+
+            <button class="boton-musica" type="button">
+              ▶ Reproducir
+            </button>
+
+            <input
+              class="barra-musica"
+              type="range"
+              min="0"
+              max="100"
+              value="0"
+              step="0.1"
+              aria-label="Progreso de la canción"
+            >
+
+            <div class="tiempo-musica">
+              <span class="tiempo-actual">00:00</span>
+              <span class="duracion">00:00</span>
+            </div>
+          </div>
+
+          <div class="frase">
+        Gracias por haber formado parte de mi vida.
+        <br><br>
+        Siempre recordaré con cariño todo lo que vivimos.
+        <br><br>
+        Te deseo una vida llena de felicidad, paz y muchos sueños cumplidos.
+        <br><br>
+        Te seguiré esperando aunque tal vez sea para toda la vida :^
+        <br><br>
+        ♡ Te quiero mucho Ale ♡
+        <br><br>
+        Siempre seras mi ingeniera fvorita, simplemente la mejor de todas...
+        <br><br>
+        Prometo ir a buscarte cuando sea el momento y si tu aceptas claro...
+        <br><br>
+        Sere tu astronomo, recorriendo cada galaxia con el fin de estar contigo...
+        <br><br>
+        Te prometo que..., volveremos a vernos...
+        <br><br>
+        Un cazador de demonios debe sufrir en silencio...
+        <br><br>
+        Te quiero Alexandra y mucho, no lo olvides
+        <br><br>
+        Eres importante en mi vida ❤️‍🩹
+        
+          </div>
+        </div>
+
+        <img
+          class="personaje personaje-derecha"
+          src="img/makomo.jpeg"
+          alt="Makomo"
+        >
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function abrirPagina() {
+      const portada = document.getElementById("portada");
+      const contenido = document.getElementById("contenido");
+
+      portada.classList.add("oculta");
+      contenido.classList.add("visible");
+
+      setTimeout(function() {
+        portada.style.display = "none";
+      }, 900);
+    }
+
+    function mostrarSeccion(idSeccion, botonSeleccionado) {
+      detenerTodasLasCanciones();
+
+      const secciones = document.querySelectorAll(".seccion");
+      const botones = document.querySelectorAll(".boton-seccion");
+
+      secciones.forEach(function(seccion) {
+        seccion.classList.remove("visible");
+      });
+
+      botones.forEach(function(boton) {
+        boton.classList.remove("activo");
+      });
+
+      document.getElementById(idSeccion).classList.add("visible");
+      botonSeleccionado.classList.add("activo");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    const reproductores = [];
+    let audioActivo = null;
+    let reproductorActivo = null;
+
+    function formatearTiempo(segundos) {
+      if (!Number.isFinite(segundos)) return "00:00";
+
+      const minutos = Math.floor(segundos / 60);
+      const segundosRestantes = Math.floor(segundos % 60);
+
+      return String(minutos).padStart(2, "0") + ":" +
+             String(segundosRestantes).padStart(2, "0");
+    }
+
+    document.querySelectorAll(".reproductor").forEach(function(contenedor) {
+      const audio = new Audio(contenedor.dataset.audio);
+      const boton = contenedor.querySelector(".boton-musica");
+      const barra = contenedor.querySelector(".barra-musica");
+      const tiempoActual = contenedor.querySelector(".tiempo-actual");
+      const duracion = contenedor.querySelector(".duracion");
+
+      reproductores.push({
+        contenedor: contenedor,
+        audio: audio,
+        boton: boton,
+        barra: barra,
+        tiempoActual: tiempoActual,
+        duracion: duracion
+      });
+
+      audio.addEventListener("loadedmetadata", function() {
+        duracion.textContent = formatearTiempo(audio.duration);
+      });
+
+      audio.addEventListener("timeupdate", function() {
+        if (audio.duration) {
+          barra.value = (audio.currentTime / audio.duration) * 100;
+        }
+
+        tiempoActual.textContent = formatearTiempo(audio.currentTime);
+      });
+
+      boton.addEventListener("click", function() {
+        if (audioActivo && audioActivo !== audio) {
+          audioActivo.pause();
+
+          if (reproductorActivo) {
+            reproductorActivo.boton.textContent = "▶ Reproducir";
+            reproductorActivo.contenedor.classList.remove("reproduciendo");
+          }
+        }
+
+        if (audio.paused) {
+          audio.play()
+            .then(function() {
+              boton.textContent = "⏸ Pausar";
+              contenedor.classList.add("reproduciendo");
+              audioActivo = audio;
+              reproductorActivo = {
+                contenedor: contenedor,
+                audio: audio,
+                boton: boton
+              };
+            })
+            .catch(function(error) {
+              console.error("No se pudo reproducir el audio:", error);
+            });
+        } else {
+          audio.pause();
+          boton.textContent = "▶ Reproducir";
+          contenedor.classList.remove("reproduciendo");
+        }
+      });
+
+      barra.addEventListener("input", function() {
+        if (audio.duration) {
+          audio.currentTime = (barra.value / 100) * audio.duration;
+        }
+      });
+
+      audio.addEventListener("ended", function() {
+        boton.textContent = "▶ Reproducir";
+        barra.value = 0;
+        tiempoActual.textContent = "00:00";
+        contenedor.classList.remove("reproduciendo");
+      });
+    });
+
+    function detenerTodasLasCanciones() {
+      reproductores.forEach(function(reproductor) {
+        reproductor.audio.pause();
+        reproductor.audio.currentTime = 0;
+        reproductor.boton.textContent = "▶ Reproducir";
+        reproductor.barra.value = 0;
+        reproductor.tiempoActual.textContent = "00:00";
+        reproductor.contenedor.classList.remove("reproduciendo");
+      });
+
+      audioActivo = null;
+      reproductorActivo = null;
+    }
+
+  </script>
+
+</body>
+</html>
