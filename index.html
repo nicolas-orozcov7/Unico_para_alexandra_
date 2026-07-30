@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -225,7 +226,7 @@
 
     .botones {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
       margin-bottom: 30px;
     }
@@ -259,11 +260,12 @@
       box-shadow: 0 10px 28px rgba(0,0,0,0.3);
     }
 
-    .boton-final{
-      grid-column: 1 / -1;
-      justify-self: center;
-      width: 320px;
-      max-width: 100%;
+    .boton-final-izquierdo {
+      grid-column: 2;
+    }
+
+    .boton-final-derecho {
+      grid-column: 3;
     }
 
     .seccion {
@@ -475,6 +477,17 @@
       }
     }
 
+    @media (max-width: 900px) {
+      .botones {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .boton-final-izquierdo,
+      .boton-final-derecho {
+        grid-column: auto;
+      }
+    }
+
     @media (max-width: 650px) {
       .contenido {
         padding: 28px 14px 45px;
@@ -482,6 +495,11 @@
 
       .botones {
         grid-template-columns: 1fr;
+      }
+
+      .boton-final-izquierdo,
+      .boton-final-derecho {
+        grid-column: auto;
       }
 
       .portada {
@@ -634,6 +652,10 @@
         📖 Nuestra historia 📖
       </button>
 
+      <button class="boton-seccion" onclick="mostrarSeccion('seccionNueva', this)">
+        ⭐ Eduardo y Alexandra ⭐
+      </button>
+
       <button class="boton-seccion" onclick="mostrarSeccion('seccion3', this)">
         📸 Momentos inolvidables 📸
       </button>
@@ -650,11 +672,11 @@
         🌱 Lo que aprendí y me disculpo 🌱
       </button>
 
-      <button class="boton-seccion" onclick="mostrarSeccion('seccion7', this)">
+      <button class="boton-seccion boton-final-izquierdo" onclick="mostrarSeccion('seccion7', this)">
         💙 Gracias 💙
       </button>
 
-      <button class="boton-seccion boton-final" onclick="mostrarSeccion('seccion8', this)">
+      <button class="boton-seccion boton-final-derecho" onclick="mostrarSeccion('seccion8', this)">
         🌌 Me retiro 🌌
       </button>
     </nav>
@@ -923,6 +945,76 @@
           class="personaje personaje-derecha"
           src="img/koyuki.png"
           alt="Koyuki"
+        >
+      </div>
+    </section>
+    <section id="seccionNueva" class="seccion centrada">
+      <h3>Nosotros (He and She)</h3>
+
+      <div class="presentacion-con-personajes">
+        <img
+          class="personaje personaje-izquierda"
+          src="img/deku-take-on-me.png"
+          alt="Deku"
+        >
+
+        <div class="texto-presentacion">
+          <p>
+      Sin pensar que ese 17 de marzo, sería un dia espctacular, un dia magico, una noche de neón, llegue algo serio ese día, algo distraido, muy callado
+      no se si recuerdes, un dia antes, cambiaron los roles, yo te pregunte todo, la verdad pense que te abrume..., bueno eran preguntas basicas, de tu estar,
+      de tu descansar, de tu bienestar, la verdad, era para no dejar morir el día, los sabados, como los domingos se volvieron dias algo inertes para nosotros...
+
+      <br><br>
+
+      Fue un dia algo largo pero valio totalmente la pena, ya no teniamos nada que hacer, no habia clases, solo pasar el rato, jugando ajedrez, matando el tiempo,
+      se que siempre hacia que los dias fueran algo aburridos, por no charlar, no sacar un tema de conversación, me eh portado muy mal, fui una mala persona, desde ese día
+      mis dias cambiaron, una nueva responsabilidad, un camino que sabiamos que seria complicado, sería algo dificil de cruzar, sin embargo, me arme de valor de tomar
+      tu cintura, tomar tu mano, tomar tus labios y besarlos... ><
+
+      <br><br>
+
+      Tu sonrisa tan resplandeciente, dejó a mi corazón encantado, en el instante que te volvi a encontrar, mi mente trajo aquel hermoso, que de niño nunca creí imaginar,
+      me pregunto, si aun quisieras seguir bailando conmigo, si me das tu mano, te llevare, con un camino cubierto de luz y oscuridad, se que hoy sigues pensando en esa
+      version horrenda de mí, no puedo saberlo pero lo entiendo, que amor necesitas tú, y el valor para pelear en mi lo encontraras, mi corazón vibro, en ese momento 
+      cuando nuestro labios chocaron, tu tan nerviosa y yo también, aunque no lo notaras, lo tome con mucho amor, pero disfrutando el momento...
+
+      <br><br>
+
+      Quisiera parar el tiempo, y volver a ese día, ese día magico, para ver nuevamente ese destino que siempre imagino junto a tí, tantas cosas que quiero decirte, se quedan
+      hoy en silencio, no puedo encontrar el momento, el ruido de la ciudad, no me permite llegar hoy a tu corazón, y aunque aveces trate de ocultar lo que sentía, siempre
+      ocupabas tu mi pensamiento, ya no puedo finjir, lo que mi corazón siente por tí, ven dame y toma y tu mano, para huir de esta terrible oscuridad...
+          </p>
+
+          <div class="reproductor" data-audio="audio/take-on-me.mp3">
+            <div class="reproductor-titulo">
+              ¿Que hay aqui?
+            </div>
+
+            <button class="boton-musica" type="button">
+              ▶ Reproducir
+            </button>
+
+            <input
+              class="barra-musica"
+              type="range"
+              min="0"
+              max="100"
+              value="0"
+              step="0.1"
+              aria-label="Progreso de la canción"
+            >
+
+            <div class="tiempo-musica">
+              <span class="tiempo-actual">00:00</span>
+              <span class="duracion">00:00</span>
+            </div>
+          </div>
+        </div>
+
+        <img
+          class="personaje personaje-derecha"
+          src="img/uraraka-take-on-me.png"
+          alt="Uraraka"
         >
       </div>
     </section>
