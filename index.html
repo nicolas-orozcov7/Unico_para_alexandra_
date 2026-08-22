@@ -484,7 +484,97 @@
       }
     }
 
+
+
+    /* MENÚ DE CADA 17 */
+    .cada17-bienvenida {
+      max-width: 850px;
+      margin: 0 auto 24px;
+      padding: 22px 24px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.20);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.20);
+    }
+
+    .cada17-bienvenida h4 {
+      margin: 0 0 10px;
+      color: #fff6ff;
+      font-size: 1.35rem;
+    }
+
+    .cada17-bienvenida p {
+      margin: 0 auto;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .cada17-menu {
+      max-width: 900px;
+      margin: 0 auto 30px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .boton-cada17 {
+      padding: 15px 12px;
+      border: 1px solid rgba(255,255,255,0.30);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.10);
+      color: white;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .boton-cada17:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.20);
+      box-shadow: 0 9px 20px rgba(0,0,0,0.22);
+    }
+
+    .boton-cada17.activo {
+      background: white;
+      color: #681c91;
+      box-shadow: 0 9px 24px rgba(0,0,0,0.28);
+    }
+
+    .cada17-entrada {
+      display: none;
+    }
+
+    .cada17-entrada.activa {
+      display: block;
+      animation: aparecer 0.45s ease;
+    }
+
+    .cada17-futuro {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 30px 24px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .cada17-futuro h4 {
+      margin-bottom: 12px;
+      color: #fff6ff;
+      font-size: 1.45rem;
+    }
+
+    .cada17-futuro p {
+      margin: 0 auto;
+    }
+
     @media (max-width: 900px) {
+      .cada17-menu {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .botones {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -498,6 +588,14 @@
     }
 
     @media (max-width: 650px) {
+      .cada17-menu {
+        grid-template-columns: 1fr;
+      }
+
+      .cada17-bienvenida {
+        padding: 18px 16px;
+      }
+
       .contenido {
         padding: 28px 14px 45px;
       }
@@ -691,7 +789,7 @@
 
       <!-- NUEVA SECCIÓN -->
       <button class="boton-seccion boton-nueva" onclick="mostrarSeccion('seccion9', this)">
-        :^ Cada 17 :^
+        ^: Cada 17 :^
       </button>
     </nav>
 
@@ -1479,103 +1577,172 @@ Me lleve muchas experiencias nuevas contigo Ale, llegue a experimentar nuevas co
 
     <!-- NUEVA SECCIÓN -->
     <section id="seccion9" class="seccion centrada">
-      <h3>:^ Cada 17 :^</h3>
+      <h3>🌟 ^: Cada 17 :^ 🌟</h3>
+
+      <div class="cada17-bienvenida">
+        <h4>💌 Bienvenida a Cada 17 💌</h4>
+        <p>
+          Aquí encontrarás un pequeño espacio que iré construyendo cada 17.
+          Cada botón guarda una entrada diferente a cada 17, si me es posible te escribire algo
+          en fisico o si no en digital y lo subire para que lo tengas quí..., y ojala algun día
+          poder darte esas cartas en fisico...
+
+          <br><br>
+          Te extraño mucho, me encantaría seguir recorriendo este camino, solo supongo que sera cuestion de 
+          tiempo, ya pasamos un invierno, supongo que aun hay posibilidad de otro...
+
+          <br><br>
+          TQM, mi corazón :3
+        </p>
+      </div>
+
+      <div class="cada17-menu">
+        <button class="boton-cada17 activo" onclick="mostrarCada17('entrada17082026', this)">
+          💌 17/08/2026 💌
+        </button>
+        <button class="boton-cada17" onclick="mostrarCada17('entrada17092026', this)">
+          🌙 17/09/2026 🌙 
+        </button>
+        <button class="boton-cada17" onclick="mostrarCada17('entrada17102026', this)">
+          ✨ 17/10/2026 ✨
+        </button>
+        <button class="boton-cada17" onclick="mostrarCada17('entrada17112026', this)">
+          🍂 17/11/2026 🍂
+        </button>
+        <button class="boton-cada17" onclick="mostrarCada17('entrada17122026', this)">
+          🎄 17/12/2026 🎄
+        </button>
+      </div>
 
       <div class="presentacion-con-personajes">
         <img
           class="personaje personaje-izquierda"
           src="img/caballerito.png"
-          alt="Caballero"
+          alt="Caballerito"
         >
 
         <div class="texto-presentacion">
-          <p>
-            Cada 17...
-            <br><br>
+          <div id="entrada17082026" class="cada17-entrada activa">
+            <p>
+              Cada 17...
+              <br><br>
 
-            Hola Ale...
+              Hola Ale...
 
-            <br><br>
+              <br><br>
 
-            17/08/2026
-            <br><br>
+              17/08/2026
+              <br><br>
 
-            Bueno como te lo prometí, prometi escribirte de hoy en adelante cada 17, tal vez..., para ti ya no signifique nada, pero yo lo hare
-            tal vez pierdo mi tiempo escribiendo para ti, pero la verdad, no puedo olvidarte y no creo poder hacerlo...
+              Bueno como te lo prometí, prometi escribirte de hoy en adelante cada 17, tal vez..., para ti ya no signifique nada, pero yo lo hare
+              tal vez pierdo mi tiempo escribiendo para ti, pero la verdad, no puedo olvidarte y no creo poder hacerlo...
 
-            <br><br>
-            Tal vez en este punto ya me superaste, ya solo soy un capitulo mas en tu historia, ya me habras olvidado en este punto, pero sigo sientiendo
-            muchas cosas por tí, tal vez me veo mal haciendo esto, sabiendo que ambos tomamos una desicion..., de tal vez superarnos, tal vez tu ya, pero yo no...,
-            no te niego, sigo sientiendo ese amor latente por tí, ese amor fuerte que aun sigue ardiendo, tal vez tu ya no..., te extraño demasiado la verdad, para que 
-            lo niego, no puedo olvidarte, con ganas de abrazarte muy fuerte y no soltarte nunca más, pero te eh perdido, es el precio que tal vez debo pagar...
+              <br><br>
+              Tal vez en este punto ya me superaste, ya solo soy un capitulo mas en tu historia, ya me habras olvidado en este punto, pero sigo sientiendo
+              muchas cosas por tí, tal vez me veo mal haciendo esto, sabiendo que ambos tomamos una desicion..., de tal vez superarnos, tal vez tu ya, pero yo no...,
+              no te niego, sigo sientiendo ese amor latente por tí, ese amor fuerte que aun sigue ardiendo, tal vez tu ya no..., te extraño demasiado la verdad, para que
+              lo niego, no puedo olvidarte, con ganas de abrazarte muy fuerte y no soltarte nunca más, pero te eh perdido, es el precio que tal vez debo pagar...
 
-            <br><br>
-            Bueno el objetivo de esto es..., bueno cuando hago un escrito siempre menciono cosas que tal vez no puedo decir fisicamente, y la verdad
-            no tengo la certeza de que leas esto, tal vez ya no lo leas o tal vez solo lo tiraste y ya, o no lo se la verdad, pero aqui quedara grabado 
-            para siempre por ti y para ti, es mi promesa...
+              <br><br>
+              Bueno el objetivo de esto es..., bueno cuando hago un escrito siempre menciono cosas que tal vez no puedo decir fisicamente, y la verdad
+              no tengo la certeza de que leas esto, tal vez ya no lo leas o tal vez solo lo tiraste y ya, o no lo se la verdad, pero aqui quedara grabado
+              para siempre por ti y para ti, es mi promesa...
 
-            <br><br>
-            En general, espero estes bien, bueno supongo que si, estas mejor, y si es lo contrario, sabes que estare para ti, tal vez estemos lejos ahora, yo
-            recorriendo cada galaxia, en cada cielo, en cada luna, acompañandote, y cuidandote...
+              <br><br>
+              En general, espero estes bien, bueno supongo que si, estas mejor, y si es lo contrario, sabes que estare para ti, tal vez estemos lejos ahora, yo
+              recorriendo cada galaxia, en cada cielo, en cada luna, acompañandote, y cuidandote...
 
-            <br><br>
-            Me duele saber que esto terminara así, estando lejos, tal vez extrañandome, tal vez no, pero... yo si y mucho, muero por verte tal vez tu ya no, ahora...,
-            solo tengo que verte de lejos o en mis sueños, sigo caminando este camino, tratando de estar contigo, cada dia, cada tarde, cada atardecer,cada noche, 
-            cada madrugada, cada amanecer...
+              <br><br>
+              Me duele saber que esto terminara así, estando lejos, tal vez extrañandome, tal vez no, pero... yo si y mucho, muero por verte tal vez tu ya no, ahora...,
+              solo tengo que verte de lejos o en mis sueños, sigo caminando este camino, tratando de estar contigo, cada dia, cada tarde, cada atardecer,cada noche,
+              cada madrugada, cada amanecer...
 
-            <br><br>
-            Sueño que seguimos siendo ese par de tortolos, esos enamorados, pegados uno junto a otro..., la verdad tengo sueño, pero aqui estoy, esperando una respuesta
-            tuya, sabiendo que ya no la tendre, solo tengo que sufrir en silencio, tu bailando y yo sufriendo de amor por ti..., pero se que estas feliz, y si tu lo 
-            estas yo tambien lo estare..
+              <br><br>
+              Sueño que seguimos siendo ese par de tortolos, esos enamorados, pegados uno junto a otro..., la verdad tengo sueño, pero aqui estoy, esperando una respuesta
+              tuya, sabiendo que ya no la tendre, solo tengo que sufrir en silencio, tu bailando y yo sufriendo de amor por ti..., pero se que estas feliz, y si tu lo
+              estas yo tambien lo estare..
 
-            <br><br>
-            Tal vez es algo corto lo que te digo, la verdad, hay mucho que decir pero, tengo que cuidar a mi mama, esta bastante enferma, pero estando con ella...,
-            por favor cuidate mucho si, come bien, duerme bien, no duermas tarde...
+              <br><br>
+              Tal vez es algo corto lo que te digo, la verdad, hay mucho que decir pero, tengo que cuidar a mi mama, esta bastante enferma, pero estando con ella...,
+              por favor cuidate mucho si, come bien, duerme bien, no duermas tarde...
 
-            <br><br>
-            Te quiero mucho y te extraño mucho...
+              <br><br>
+              Te quiero mucho y te extraño mucho...
 
-            <br><br>
-            Con amor..., Eduardo...
+              <br><br>
+              Con amor..., Eduardo...
 
-            <br><br>
-            2:45 AM
+              <br><br>
+              2:45 AM
+            </p>
 
-          </p>
+            <div class="reproductor" data-audio="audio/Dano(1).mp3">
+              <div class="reproductor-titulo">
+                ¿Que hay aqui?
+              </div>
 
-          <div class="reproductor" data-audio="audio/Dano.mp3">
-            <div class="reproductor-titulo">
-              ¿Que hay aqui?
-            </div>
+              <button class="boton-musica" type="button">
+                ▶ Reproducir
+              </button>
 
-            <button class="boton-musica" type="button">
-              ▶ Reproducir
-            </button>
+              <input
+                class="barra-musica"
+                type="range"
+                min="0"
+                max="100"
+                value="0"
+                step="0.1"
+                aria-label="Progreso de la canción"
+              >
 
-            <input
-              class="barra-musica"
-              type="range"
-              min="0"
-              max="100"
-              value="0"
-              step="0.1"
-              aria-label="Progreso de la canción"
-            >
-
-            <div class="tiempo-musica">
-              <span class="tiempo-actual">00:00</span>
-              <span class="duracion">00:00</span>
+              <div class="tiempo-musica">
+                <span class="tiempo-actual">00:00</span>
+                <span class="duracion">00:00</span>
+              </div>
             </div>
           </div>
 
-          <div class="frase">
-            17/08/2026
+          <div id="entrada17092026" class="cada17-entrada">
+            <div class="cada17-futuro">
+              <h4>🌙 17 de septiembre de 2026 🌙</h4>
+              <p>
+                Se abre el 17 de Septiembre de 2026, solo espera si...¿?
+                
+              </p>
+            </div>
+          </div>
+
+          <div id="entrada17102026" class="cada17-entrada">
+            <div class="cada17-futuro">
+              <h4>✨ 17 de octubre de 2026 ✨</h4>
+              <p>
+                Se abre el 17 de Octubre de 2026, solo espera si...¿?
+              </p>
+            </div>
+          </div>
+
+          <div id="entrada17112026" class="cada17-entrada">
+            <div class="cada17-futuro">
+              <h4>🍂 17 de noviembre de 2026 🍂</h4>
+              <p>
+                 Se abre el 17 de Noviembre de 2026, solo espera si...¿?
+              </p>
+            </div>
+          </div>
+
+          <div id="entrada17122026" class="cada17-entrada">
+            <div class="cada17-futuro">
+              <h4>🎄 17 de diciembre de 2026 🎄</h4>
+              <p>
+                 Se abre el 17 de Diciembre de 2026, solo espera si...¿?
+              </p>
+            </div>
           </div>
         </div>
 
         <img
           class="personaje personaje-derecha"
-          src="img/oboro.png"
+          src="img/Oboro.png"
           alt="Oboro"
         >
       </div>
@@ -1728,6 +1895,26 @@ Me lleve muchas experiencias nuevas contigo Ale, llegue a experimentar nuevas co
       setTimeout(function() {
         portada.style.display = "none";
       }, 900);
+    }
+
+
+
+    function mostrarCada17(idEntrada, botonSeleccionado) {
+      detenerTodasLasCanciones();
+
+      const entradas = document.querySelectorAll(".cada17-entrada");
+      const botonesCada17 = document.querySelectorAll(".boton-cada17");
+
+      entradas.forEach(function(entrada) {
+        entrada.classList.remove("activa");
+      });
+
+      botonesCada17.forEach(function(boton) {
+        boton.classList.remove("activo");
+      });
+
+      document.getElementById(idEntrada).classList.add("activa");
+      botonSeleccionado.classList.add("activo");
     }
 
     function mostrarSeccion(idSeccion, botonSeleccionado) {
