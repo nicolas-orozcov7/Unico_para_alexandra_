@@ -570,6 +570,145 @@
       margin: 0 auto;
     }
 
+    /* CARTAS - debajo del botón Cada 17 */
+    .cartas-menu-contenedor {
+      grid-column: 2 / 4;
+      grid-row: 5;
+      width: 52%;
+      justify-self: center;
+      margin: 0 auto 30px;
+      text-align: center;
+    }
+
+    .boton-cartas-principal {
+      display: block;
+      width: 100%;
+      padding: 16px 13px;
+      border: 1px solid rgba(255,255,255,0.34);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.12);
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .boton-cartas-principal:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.24);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.24);
+    }
+
+    .boton-cartas-principal.activo {
+      background: white;
+      color: #681c91;
+      font-weight: 700;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.30);
+    }
+
+    .submenu-cartas {
+      display: none;
+      width: 100%;
+      margin-top: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .submenu-cartas.visible {
+      display: grid;
+    }
+
+    .boton-subcarta {
+      padding: 14px 12px;
+      border: 1px solid rgba(255,255,255,0.30);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.10);
+      color: white;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .boton-subcarta:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.20);
+      box-shadow: 0 9px 20px rgba(0,0,0,0.22);
+    }
+
+    /* VISOR DE LA CARTA */
+    .visor-carta {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 18px;
+      overflow-y: auto;
+      background: rgba(12,0,20,0.90);
+      backdrop-filter: blur(10px);
+    }
+
+    .visor-carta.visible {
+      display: flex;
+      animation: aparecer 0.35s ease;
+    }
+
+    .visor-carta-contenido {
+      position: relative;
+      width: min(100%, 1050px);
+      margin: auto;
+      padding: 20px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.28);
+      box-shadow: 0 20px 70px rgba(0,0,0,0.55);
+    }
+
+    .visor-carta-titulo {
+      margin: 0 55px 18px 0;
+      color: white;
+      font-size: 1.35rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .cerrar-visor-carta {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 50%;
+      background: white;
+      color: #681c91;
+      font-size: 1.4rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .cartas-imagenes {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .cartas-imagenes img {
+      display: block;
+      width: 100%;
+      max-width: 950px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.38);
+    }
+
     @media (max-width: 900px) {
       .cada17-menu {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -580,9 +719,15 @@
       }
 
       .boton-final-izquierdo,
-      .boton-final-derecho,
-      .boton-nueva {
+      .boton-final-derecho {
         grid-column: auto;
+        width: 100%;
+      }
+
+      .boton-nueva,
+      .cartas-menu-contenedor {
+        grid-column: 1 / -1;
+        grid-row: auto;
         width: 100%;
       }
     }
@@ -791,6 +936,26 @@
       <button class="boton-seccion boton-nueva" onclick="mostrarSeccion('seccion9', this)">
         ^: Cada 17 :^
       </button>
+
+      <div class="cartas-menu-contenedor">
+        <button
+          class="boton-cartas-principal"
+          type="button"
+          onclick="toggleMenuCartas(this)"
+        >
+          ¿Que hay aqui?
+        </button>
+
+        <div id="submenuCartas" class="submenu-cartas">
+          <button
+            class="boton-subcarta"
+            type="button"
+            onclick="abrirCarta('carta02092026')"
+          >
+             02/09/2026 
+          </button>
+        </div>
+      </div>
     </nav>
 
     <section id="presentacion" class="seccion visible centrada">
@@ -1884,6 +2049,33 @@ Me lleve muchas experiencias nuevas contigo Ale, llegue a experimentar nuevas co
 
   </main>
 
+  <!-- VISOR DE CARTA: 02/09/2026 -->
+  <div
+    id="carta02092026"
+    class="visor-carta"
+    onclick="cerrarCartaSiFondo(event)"
+  >
+    <div class="visor-carta-contenido">
+      <button
+        class="cerrar-visor-carta"
+        type="button"
+        aria-label="Cerrar carta"
+        onclick="cerrarCarta()"
+      >
+        ×
+      </button>
+
+      <div class="visor-carta-titulo">
+        💌 Carta — 02/09/2026 💌
+      </div>
+
+      <div class="cartas-imagenes">
+        <img src="img/1.jpeg" alt="Carta del 02 de septiembre de 2026, página 1">
+        <img src="img/2.jpeg" alt="Carta del 02 de septiembre de 2026, página 2">
+      </div>
+    </div>
+  </div>
+
   <script>
     function abrirPagina() {
       const portada = document.getElementById("portada");
@@ -1898,6 +2090,42 @@ Me lleve muchas experiencias nuevas contigo Ale, llegue a experimentar nuevas co
     }
 
 
+
+    function toggleMenuCartas(boton) {
+      const submenu = document.getElementById("submenuCartas");
+      const abierto = submenu.classList.toggle("visible");
+      boton.classList.toggle("activo", abierto);
+    }
+
+    function abrirCarta(idCarta) {
+      detenerTodasLasCanciones();
+
+      const carta = document.getElementById(idCarta);
+      if (!carta) return;
+
+      carta.classList.add("visible");
+      document.body.style.overflow = "hidden";
+    }
+
+    function cerrarCarta() {
+      document.querySelectorAll(".visor-carta").forEach(function(carta) {
+        carta.classList.remove("visible");
+      });
+
+      document.body.style.overflow = "";
+    }
+
+    function cerrarCartaSiFondo(event) {
+      if (event.target.classList.contains("visor-carta")) {
+        cerrarCarta();
+      }
+    }
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        cerrarCarta();
+      }
+    });
 
     function mostrarCada17(idEntrada, botonSeleccionado) {
       detenerTodasLasCanciones();
